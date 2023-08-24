@@ -1,8 +1,11 @@
 import "@/styles/globals.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useEffect } from "react";
 import { useRecoilState, RecoilRoot } from "recoil";
 import { LoadingAtom } from "../atoms";
 import { Layout, Loading } from "../components";
+import { ToastContainer, toast } from "react-toastify";
 
 const Application = ({ Component, pageProps }) => {
 	const [loading, setLoading] = useRecoilState(LoadingAtom);
@@ -11,11 +14,9 @@ const Application = ({ Component, pageProps }) => {
 	}, []);
 	if (loading) return <Loading />;
 	return (
-		<RecoilRoot>
-			<div className="hero-body is-align-items-flex-start container">
-				<Component {...pageProps} />
-			</div>
-		</RecoilRoot>
+		<div className="hero-body is-align-items-flex-start container">
+			<Component {...pageProps} />
+		</div>
 	);
 };
 
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }) {
 	return (
 		<RecoilRoot>
 			<Layout>
+				<ToastContainer />
 				<Application Component={Component} pageProps={pageProps} />
 			</Layout>
 		</RecoilRoot>
